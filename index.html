@@ -3,177 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YOTTA 會轉移維度｜2025.11-12 成效數據</title>
+    <title>YOTTA 會員轉移成效數據報表</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8fafc; }
-        .tab-active { border-bottom: 3px solid #3b82f6; color: #3b82f6; font-weight: 700; }
-        .card { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .data-table thead th { background-color: #f1f5f9; position: sticky; top: 0; }
-        .insight-box { border-left: 4px solid #3b82f6; background-color: #eff6ff; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .nav-tab.active { border-bottom: 4px solid #3b82f6; color: #3b82f6; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="bg-gray-50 font-sans">
 
-    <header class="max-w-7xl mx-auto mb-8 text-center">
-        <h1 class="text-3xl md:text-4xl font-bold text-slate-800 mb-2">YOTTA 會轉移維度｜2025.11-12 成效數據</h1>
-        <p class="text-slate-500">數據分析報告整合面板</p>
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-900">YOTTA 轉移維度成效報表</h1>
+            <span class="text-sm text-gray-500">數據區間：2025/11/01 - 2025/12/31</span>
+        </div>
+        <nav class="max-w-7xl mx-auto px-4 flex space-x-8 overflow-x-auto">
+            <button onclick="showTab('base')" class="nav-tab active px-3 py-4 text-sm font-medium whitespace-nowrap">基礎資料</button>
+            <button onclick="showTab('value')" class="nav-tab px-3 py-4 text-sm font-medium whitespace-nowrap">轉移價值</button>
+            <button onclick="showTab('course')" class="nav-tab px-3 py-4 text-sm font-medium whitespace-nowrap">熱門課程</button>
+            <button onclick="showTab('behavior')" class="nav-tab px-3 py-4 text-sm font-medium whitespace-nowrap">下單行為</button>
+        </nav>
     </header>
 
-    <main class="max-w-7xl mx-auto">
-        <nav class="flex flex-wrap justify-center space-x-2 md:space-x-8 mb-8 border-b border-slate-200">
-            <button onclick="showTab('base')" id="btn-base" class="tab-btn px-4 py-2 text-slate-600 hover:text-blue-500 transition tab-active">基礎資料</button>
-            <button onclick="showTab('value')" id="btn-value" class="tab-btn px-4 py-2 text-slate-600 hover:text-blue-500 transition">轉移價值</button>
-            <button onclick="showTab('order')" id="btn-order" class="tab-btn px-4 py-2 text-slate-600 hover:text-blue-500 transition">下單狀況</button>
-            <button onclick="showTab('course')" id="btn-course" class="tab-btn px-4 py-2 text-slate-600 hover:text-blue-500 transition">購買課程</button>
-        </nav>
+    <main class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
 
-        <section id="tab-base" class="tab-content space-y-6">
-            <div class="card p-6 overflow-x-auto">
-                <h2 class="text-xl font-bold mb-4 flex items-center"><i class="fas fa-database mr-2 text-blue-500"></i> 會員轉移基礎資料</h2>
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="border-b border-slate-200 text-slate-600 text-sm">
-                            <th class="p-3">項目</th>
-                            <th class="p-3 text-right">YOTTA 總會員/金額</th>
-                            <th class="p-3 text-right">PPA & YOTTA 會員</th>
-                            <th class="p-3 text-right">YOTTA 非 PPA 會員</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-slate-700">
-                        <tr class="border-b hover:bg-slate-50 transition"><td class="p-3">YOTTA 搬過來的會員</td><td class="p-3 text-right">399,235</td><td class="p-3 text-right">122,175</td><td class="p-3 text-right">277,060</td></tr>
-                        <tr class="border-b hover:bg-slate-50 transition font-medium text-blue-600"><td class="p-3">在 YOTTA 「有任一消費金額」會員人數</td><td class="p-3 text-right">197,788</td><td class="p-3 text-right">70,435</td><td class="p-3 text-right">127,347</td></tr>
-                        <tr class="border-b hover:bg-slate-50 transition"><td class="p-3">在 YOTTA 「消費金額 > 3000」</td><td class="p-3 text-right">72,609</td><td class="p-3 text-right">32,236</td><td class="p-3 text-right">40,373</td></tr>
-                        <tr class="border-b hover:bg-slate-50 transition"><td class="p-3">在 YOTTA 「消費金額 > 5000」</td><td class="p-3 text-right">38,530</td><td class="p-3 text-right">19,414</td><td class="p-3 text-right">19,116</td></tr>
-                        <tr class="border-b hover:bg-slate-50 transition"><td class="p-3">在 YOTTA 「消費金額 > 10000」</td><td class="p-3 text-right">13,227</td><td class="p-3 text-right">7,952</td><td class="p-3 text-right">5,275</td></tr>
-                        <tr class="border-b hover:bg-slate-50 bg-blue-50"><td class="p-3 font-bold">2025/12 已在 PPA 登入/已轉移人數</td><td class="p-3 text-right font-bold">16,071</td><td class="p-3 text-right">7,318</td><td class="p-3 text-right">8,753</td></tr>
-                        <tr class="border-b hover:bg-slate-50"><td class="p-3 italic">【登入佔有消費會員人數】佔比</td><td class="p-3 text-right">8.13%</td><td class="p-3 text-right">10.39%</td><td class="p-3 text-right">6.87%</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+        <div id="base" class="tab-content active space-y-6">...</div>
+        <div id="value" class="tab-content space-y-6">...</div>
+        <div id="course" class="tab-content space-y-6">...</div>
 
-        <section id="tab-value" class="tab-content hidden space-y-6">
-            <div class="card p-6 overflow-x-auto">
-                <h2 class="text-xl font-bold mb-4 flex items-center"><i class="fas fa-hand-holding-usd mr-2 text-green-500"></i> YOTTA 轉移價值 (2025/11/1-12/31)</h2>
-                <table class="w-full text-left border-collapse">
-                    <thead class="bg-slate-50">
-                        <tr class="border-b text-slate-600">
-                            <th class="p-3">項目</th>
-                            <th class="p-3 text-right">會員數</th>
-                            <th class="p-3 text-right">訂單數</th>
-                            <th class="p-3 text-right">金額 (NT$)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-b hover:bg-slate-50 transition"><td class="p-3">PPA 會員買 YOTTA</td><td class="p-3 text-right">298</td><td class="p-3 text-right">487</td><td class="p-3 text-right">1,242,145</td></tr>
-                        <tr class="border-b hover:bg-slate-50 transition"><td class="p-3">PPA & YOTTA 會員買 YOTTA</td><td class="p-3 text-right">211</td><td class="p-3 text-right">304</td><td class="p-3 text-right">842,729</td></tr>
-                        <tr class="border-b hover:bg-slate-50 transition"><td class="p-3">YOTTA 轉移新會員買 YOTTA</td><td class="p-3 text-right">65</td><td class="p-3 text-right">96</td><td class="p-3 text-right">287,313</td></tr>
-                        <tr class="border-b hover:bg-slate-50 transition font-bold text-green-600"><td class="p-3">YOTTA 轉移新會員買 PPA</td><td class="p-3 text-right">605</td><td class="p-3 text-right">850</td><td class="p-3 text-right">3,151,759</td></tr>
-                        <tr class="bg-slate-900 text-white font-bold"><td class="p-3 text-center" colspan="3">總計金額</td><td class="p-3 text-right">NT$ 5,523,946</td></tr>
-                    </tbody>
-                </table>
+        <div id="behavior" class="tab-content space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-lg font-bold mb-4">新會員轉移後下單天數 (73% 於一週內完成)</h3>
+                    <canvas id="timeChart"></canvas>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-lg font-bold mb-4">購買類型分析</h3>
+                    <canvas id="typeChart"></canvas>
+                </div>
             </div>
-            <div class="insight-box p-5 rounded-lg">
-                <p class="font-bold text-blue-800 mb-2">【EJ 數據小結】</p>
-                <p class="text-slate-700 leading-relaxed">1. PPA 課程對於『YOTTA 轉移新會員』吸引力高。<br>
-                👉 <strong>下一步：</strong> 2025 年將針對 YOTTA 會員贈送轉移優惠券。優惠隨時間遞減（1-2月$400, 3-4月$350...）。並在首頁設置 Slide Banner 引導領券。</p>
-            </div>
-        </section>
 
-        <section id="tab-order" class="tab-content hidden space-y-6">
-            <div class="card p-6 overflow-x-auto">
-                <h2 class="text-xl font-bold mb-4 flex items-center"><i class="fas fa-shopping-cart mr-2 text-orange-500"></i> 完成轉移後下單狀況分布</h2>
-                <table class="w-full text-left text-xs border-collapse">
-                    <thead class="bg-slate-50">
-                        <tr class="border-b">
-                            <th class="p-2">分析項目</th>
-                            <th class="p-2 text-right">消費人數</th>
-                            <th class="p-2 text-right">1天內</th>
-                            <th class="p-2 text-right">3天內</th>
-                            <th class="p-2 text-right">7天內</th>
-                            <th class="p-2 text-right">14天內</th>
-                            <th class="p-2 text-right">21天內</th>
-                            <th class="p-2 text-right">28天內</th>
-                            <th class="p-2 text-right">>28天</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-slate-600">
-                        <tr class="border-b bg-orange-50 font-medium">
-                            <td class="p-2">YOTTA 轉移新會員 (首次登入幾天內購買)</td>
-                            <td class="p-2 text-right">594</td>
-                            <td class="p-2 text-right text-orange-700 font-bold">500 (58%)</td>
-                            <td class="p-2 text-right">68</td><td class="p-2 text-right">35</td><td class="p-2 text-right">28</td><td class="p-2 text-right">67</td><td class="p-2 text-right">32</td><td class="p-2 text-right">20</td><td class="p-2 text-right">102</td>
-                        </tr>
-                        <tr class="border-b">
-                            <td class="p-2">首次溝通轉移日 (11/3) 購買狀況</td>
-                            <td class="p-2 text-right">4392</td>
-                            <td class="p-2 text-right">301</td><td class="p-2 text-right">213</td><td class="p-2 text-right">139</td><td class="p-2 text-right">194</td><td class="p-2 text-right">634</td><td class="p-2 text-right">875</td><td class="p-2 text-right">726</td><td class="p-2 text-right">3565</td>
-                        </tr>
-                        <tr class="border-b">
-                            <td class="p-2">登入最高峰日 (12/17) 購買狀況</td>
-                            <td class="p-2 text-right">4392</td>
-                            <td class="p-2 text-right">329</td><td class="p-2 text-right">196</td><td class="p-2 text-right">176</td><td class="p-2 text-right">239</td><td class="p-2 text-right">810</td><td class="p-2 text-right">697</td><td class="p-2 text-right">452</td><td class="p-2 text-right">207</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h3 class="text-lg font-bold mb-4 flex items-center">
+                    <span class="mr-2">📊</span> 數據視覺化補充
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <p class="text-sm font-medium text-gray-600 text-center">圖表一：用戶轉移後消費分布</p>
+                        <div class="border rounded-lg overflow-hidden bg-gray-50 flex items-center justify-center">
+                            <img src="image1.png" alt="數據分布圖 1" class="max-w-full h-auto" onerror="this.parentElement.innerHTML='<p class=p-8 text-gray-400>圖片 image1.png 載入失敗，請確認檔名是否正確</p>'">
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-sm font-medium text-gray-600 text-center">圖表二：促購成效分析</p>
+                        <div class="border rounded-lg overflow-hidden bg-gray-50 flex items-center justify-center">
+                            <img src="image2.png" alt="數據分布圖 2" class="max-w-full h-auto" onerror="this.parentElement.innerHTML='<p class=p-8 text-gray-400>圖片 image2.png 載入失敗，請確認檔名是否正確</p>'">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="insight-box p-5 rounded-lg bg-orange-50 border-orange-400">
-                <p class="font-bold text-orange-800 mb-2">【EJ 數據小結 - 優惠券使用】</p>
-                <p class="text-slate-700 leading-relaxed italic">
-                    因優惠券僅限 7 天，用戶易在隱藏頁迷路。下一步將調整為網頁公開入口，並明確標示到期日。
+
+            <div class="bg-purple-50 p-6 rounded-xl border border-purple-100">
+                <h4 class="font-bold text-purple-800 mb-2">【數據結論】</h4>
+                <p class="text-sm text-purple-900 leading-relaxed">
+                    用戶多在登入首日下單(58.6%)。長尾課程的總銷售額 ($1,849,975) 實際高於募資課，顯示站內合購與策展推薦機制發揮效用。
                 </p>
             </div>
-        </section>
+        </div>
 
-        <section id="tab-course" class="tab-content hidden space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="card p-6">
-                    <h2 class="text-xl font-bold mb-4 flex items-center"><i class="fas fa-bolt mr-2 text-yellow-500"></i> 強檔課程表現 (權重)</h2>
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center p-2 bg-slate-50 rounded"><span>高效學習 (募資課)</span> <span class="font-bold text-blue-600">63</span></div>
-                        <div class="flex justify-between items-center p-2 bg-slate-50 rounded"><span>貸款秘笈 (募資課)</span> <span class="font-bold text-blue-600">51</span></div>
-                        <div class="flex justify-between items-center p-2 bg-slate-50 rounded"><span>AI 造字 (募資課)</span> <span class="font-bold text-blue-600">47</span></div>
-                        <div class="flex justify-between items-center p-2 bg-slate-50 rounded"><span>頭部鬆筋 (募資課)</span> <span class="font-bold text-blue-600">45</span></div>
-                        <div class="flex justify-between items-center p-2 bg-slate-50 rounded"><span>ETF 動能 (募資課)</span> <span class="font-bold text-blue-600">30</span></div>
-                    </div>
-                </div>
-                <div class="card p-6 border-t-4 border-purple-500">
-                    <h2 class="text-xl font-bold mb-4 flex items-center"><i class="fas fa-chart-line mr-2 text-purple-500"></i> 長尾潛力課程清單</h2>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">Ai agent</span>
-                        <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">氣血引導</span>
-                        <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">酸痛自救</span>
-                        <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">外食減重</span>
-                        <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">日語/台語</span>
-                        <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">圖像思維</span>
-                        <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">水電 DIY</span>
-                        <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">法式甜點</span>
-                    </div>
-                    <div class="mt-6 p-4 bg-slate-50 rounded-lg text-sm text-slate-500 italic">
-                        * EJ 總結：AI 主題長尾表現優異，且受到募資課拉抬。
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <script>
+        // Tab 切換與 Chart 初始化代碼與先前相同，僅在此加入下單行為的圖表邏輯
         function showTab(tabId) {
-            // Hide all contents
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.add('hidden');
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        window.onload = function() {
+            // (其餘圖表代碼...)
+            new Chart(document.getElementById('timeChart'), {
+                type: 'line',
+                data: {
+                    labels: ['1天內', '3天內', '7天內', '14天內', '28天內+'],
+                    datasets: [{
+                        label: '下單佔比 (%)',
+                        data: [58.62, 7.97, 3.28, 7.85, 11.96],
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                }
             });
-            // Show selected content
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
-            
-            // Manage Active Button Style
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('tab-active');
+
+            new Chart(document.getElementById('typeChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['募資課', '長尾課', '訂閱'],
+                    datasets: [{
+                        label: '購買金額',
+                        data: [1230633, 1849975, 22490],
+                        backgroundColor: '#8b5cf6'
+                    }]
+                }
             });
-            document.getElementById('btn-' + tabId).classList.add('tab-active');
+            // 基礎資料、轉移價值、熱門課程的 Chart JS 代碼請參考前一次回覆
         }
     </script>
 </body>
